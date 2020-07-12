@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityAtoms.BaseAtoms;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IClickable
@@ -7,11 +8,24 @@ public class Enemy : MonoBehaviour, IClickable
     [SerializeField]
     private NavMeshAgent m_navAgent = null;
 
+    [SerializeField]
+    private IntReference m_health = null;
+
     private GameObject m_gameObject = null;
+
+    public void ChangeHealth(int delta)
+    {
+        m_health.Value += delta;
+
+        if (m_health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void IClickable._HandleClick()
     {
-        Destroy(gameObject);
+        ChangeHealth(-1);
     }
 
     public void SetTarget(GameObject gameObject)
