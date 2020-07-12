@@ -42,8 +42,11 @@ public class Enemy : MonoBehaviour, IClickable
     {
         m_gameObject = gameObject;
         m_navAgent.isStopped = gameObject == null;
+    }
 
-        if (NavMesh.SamplePosition(m_gameObject.transform.position, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+    private void Start()
+    {
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 1f, NavMesh.AllAreas))
         {
             m_navAgent.Warp(hit.position);
         }
