@@ -14,9 +14,18 @@ public class HealthBar : MonoBehaviour
     [SerializeField]
     private Slider m_slider = null;
 
+    [SerializeField]
+    private Image m_fill = null;
+
+    private void Start()
+    {
+        Refresh();
+    }
+
     public void Refresh()
     {
         m_slider.value = (float)m_currentHealth / (float)m_maxHealth;
+        m_fill.color = Color.Lerp(Color.red, Color.green, m_slider.value);
     }
 
 }

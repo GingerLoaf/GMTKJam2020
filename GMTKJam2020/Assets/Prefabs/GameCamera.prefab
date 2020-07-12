@@ -58,7 +58,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -108,8 +108,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -135,7 +135,15 @@ MonoBehaviour:
     _constant: {fileID: 11400000, guid: 931b79d07491b47428a878789aab662b, type: 2}
     _variable: {fileID: 0}
     _variableInstancer: {fileID: 0}
-  m_target: {fileID: 0}
+  m_target:
+    _usage: 2
+    _value: {fileID: 0}
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 9068ddd264c0f7c4ca8fda727d0ab6c3, type: 2}
+    _variableInstancer: {fileID: 0}
+  m_wallMask:
+    serializedVersion: 2
+    m_Bits: 307
 --- !u!114 &1645196673512800259
 MonoBehaviour:
   m_ObjectHideFlags: 0

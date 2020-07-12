@@ -37,6 +37,7 @@ public class Bud : MonoBehaviour, IClickable
     private bool m_isScared = false;
     private DateTime? m_happyTime = null;
     private DateTime? m_excitedTime = null;
+    private bool m_hasReachedGoal = false;
 
     public void SetPosition(Vector3 position)
     {
@@ -48,11 +49,13 @@ public class Bud : MonoBehaviour, IClickable
     private void Update()
     {
         UpdateNavAgent();
-        UpdateWobble();
+        CharacterUtility.UpdateWobble(m_visualsParent, m_agent.desiredVelocity, m_wobbleSpeed, m_wobbleAmount, m_isScared);
         UpdateState();
         UpdateEmote();
         UpdateBounce();
         UpdateScale();
+
+        m_agent.isStopped = m_isScared || m_hasReachedGoal;
     }
 
     private Transform FindPhysicsRoot(Transform transform)
@@ -79,8 +82,6 @@ public class Bud : MonoBehaviour, IClickable
                 break;
             }
         }
-
-        m_agent.isStopped = m_isScared;
     }
 
     private void UpdateEmote()
@@ -120,10 +121,7 @@ public class Bud : MonoBehaviour, IClickable
 
     private void UpdateNavAgent()
     {
-        if (Vector3.Distance(m_agent.destination, transform.position) <= 0.1f)
-        {
-            m_agent.isStopped = true;
-        }
+        m_hasReachedGoal = Vector3.Distance(m_agent.destination, transform.position) <= 0.1f;
     }
 
     private void UpdateBounce()
@@ -150,26 +148,6 @@ public class Bud : MonoBehaviour, IClickable
     {
         var targetScale = m_isScared ? new Vector3(1f, .2f, 1f) : Vector3.one;
         transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 5f);
-    }
-
-    private void UpdateWobble()
-    {
-        var angles = m_visualsParent.transform.localRotation;
-        var normalizedDesiredVelocity = m_agent.desiredVelocity.normalized;
-
-        Quaternion newRot = Quaternion.identity;
-        if (normalizedDesiredVelocity.magnitude > 0f && !m_isScared)
-        {
-            var eulerAngles = angles.eulerAngles;
-            eulerAngles.z = Mathf.Sin(Time.time * m_wobbleSpeed) * m_wobbleAmount;
-            newRot = Quaternion.Euler(eulerAngles * normalizedDesiredVelocity.magnitude);
-        }
-        else
-        {
-            newRot = Quaternion.Slerp(m_visualsParent.transform.localRotation, newRot, Time.deltaTime * 10f);
-        }
-
-        m_visualsParent.transform.localRotation = newRot;
     }
 }
 

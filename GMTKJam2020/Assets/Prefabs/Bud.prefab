@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5278616527712528711}
   - component: {fileID: 3773260497503512138}
   - component: {fileID: 928948672509403247}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: _uiCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 1170764372614135813}
   - component: {fileID: 4170578315231291654}
   - component: {fileID: 6919018876028544623}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: _thoughtBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,8 +203,8 @@ Transform:
   m_Father: {fileID: 3204720696008209793}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4766183295638453791
-SphereCollider:
+--- !u!64 &5806501887732454459
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -213,9 +213,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.11341109
-  m_Center: {x: -0.00019495934, y: -0.000000003725291, z: 0.0018856269}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 973877516759717424, guid: c85af115c67a9a547af1d09c7c1b46cd, type: 3}
 --- !u!1 &2543549437801024172
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ GameObject:
   - component: {fileID: 320691026492229950}
   - component: {fileID: 6572901904837378453}
   - component: {fileID: 3722757220812287173}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: _excited
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,15 +349,15 @@ MonoBehaviour:
     _variableInstancer: {fileID: 922563137664841494}
   m_agent: {fileID: 2235634630710310776}
   m_wobbleAmount:
-    _usage: 0
+    _usage: 1
     _value: 30
-    _constant: {fileID: 0}
+    _constant: {fileID: 11400000, guid: fc610e17f4bda924695c58cf76027331, type: 2}
     _variable: {fileID: 0}
     _variableInstancer: {fileID: 0}
   m_wobbleSpeed:
-    _usage: 0
+    _usage: 1
     _value: 20
-    _constant: {fileID: 0}
+    _constant: {fileID: 11400000, guid: eb71599591abaef498e131ca64d35a87, type: 2}
     _variable: {fileID: 0}
     _variableInstancer: {fileID: 0}
 --- !u!195 &2235634630710310776
@@ -368,9 +369,9 @@ NavMeshAgent:
   m_GameObject: {fileID: 3204720696008209796}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.8
-  m_Speed: 10
-  m_Acceleration: 8
+  m_Radius: 0.6
+  m_Speed: 3
+  m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 500
   m_StoppingDistance: 0
@@ -719,7 +720,7 @@ GameObject:
   - component: {fileID: 5918409673540024840}
   - component: {fileID: 3107781652963408411}
   - component: {fileID: 6480355161552154464}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: _hearts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +794,7 @@ GameObject:
   - component: {fileID: 3110657006707079291}
   - component: {fileID: 2796208830788625226}
   - component: {fileID: 3286973567758860771}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: _sad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,6 +943,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c85af115c67a9a547af1d09c7c1b46cd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c85af115c67a9a547af1d09c7c1b46cd, type: 3}

@@ -14,6 +14,15 @@ public class Enemy : MonoBehaviour, IClickable
     [SerializeField]
     private IntReference m_maxHealth = null;
 
+    [SerializeField]
+    private Transform m_visualsParent = null;
+
+    [SerializeField]
+    private FloatReference m_wobbleAmount = null;
+
+    [SerializeField]
+    private FloatReference m_wobbleSpeed = null;
+
     private GameObject m_gameObject = null;
 
     private void OnEnable()
@@ -46,7 +55,7 @@ public class Enemy : MonoBehaviour, IClickable
 
     private void Start()
     {
-        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
         {
             m_navAgent.Warp(hit.position);
         }
@@ -58,6 +67,8 @@ public class Enemy : MonoBehaviour, IClickable
         {
             m_navAgent.SetDestination(m_gameObject.transform.position);
         }
+
+        CharacterUtility.UpdateWobble(m_visualsParent, m_navAgent.desiredVelocity, m_wobbleSpeed, m_wobbleAmount, false);
     }
 
 }
