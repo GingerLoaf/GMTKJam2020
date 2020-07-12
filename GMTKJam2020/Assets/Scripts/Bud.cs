@@ -5,8 +5,12 @@ using UnityEngine.AI;
 public class Bud : MonoBehaviour, IClickable
 {
 
+    public bool IsPathing => !m_agent?.isStopped ?? false;
+
     [SerializeField]
     private Transform m_visualsParent = null;
+
+    bool IClickable._IsFriendly => true;
 
     void IClickable._HandleClick()
     {
@@ -25,13 +29,14 @@ public class Bud : MonoBehaviour, IClickable
     public void SetPosition(Vector3 position)
     {
         m_agent.SetDestination(position);
+        m_agent.isStopped = false;
     }
 
     private void Update()
     {
-        if (m_agent.isStopped)
+        if(Vector3.Distance(m_agent.destination, transform.position) <= 0.1f)
         {
-            return;
+            m_agent.isStopped = true;
         }
 
         var angles = m_visualsParent.transform.localRotation;

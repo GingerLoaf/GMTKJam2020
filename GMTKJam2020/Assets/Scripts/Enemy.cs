@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour, IClickable
         }
     }
 
+    bool IClickable._IsFriendly => false;
+
     void IClickable._HandleClick()
     {
         ChangeHealth(-1);
