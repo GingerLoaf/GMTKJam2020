@@ -52,6 +52,7 @@ public class Bud : MonoBehaviour, IClickable
         UpdateState();
         UpdateEmote();
         UpdateBounce();
+        UpdateScale();
     }
 
     private Transform FindPhysicsRoot(Transform transform)
@@ -129,7 +130,7 @@ public class Bud : MonoBehaviour, IClickable
     {
         var normalOffset = new Vector3(0f, 0.5f, 0f);
         Vector3 finalPosition;
-        if (m_excitedTime.HasValue)
+        if (m_excitedTime.HasValue && !m_isScared)
         {
             var elapsed = DateTime.UtcNow - m_excitedTime.Value;
             var elapsedT = elapsed.TotalSeconds / (EXCITED_STATE_DURATION * 0.3);
@@ -145,13 +146,19 @@ public class Bud : MonoBehaviour, IClickable
         m_visualsParent.localPosition = finalPosition;
     }
 
+    private void UpdateScale()
+    {
+        var targetScale = m_isScared ? new Vector3(1f, .2f, 1f) : Vector3.one;
+        transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 5f);
+    }
+
     private void UpdateWobble()
     {
         var angles = m_visualsParent.transform.localRotation;
         var normalizedDesiredVelocity = m_agent.desiredVelocity.normalized;
 
         Quaternion newRot = Quaternion.identity;
-        if (normalizedDesiredVelocity.magnitude > 0f)
+        if (normalizedDesiredVelocity.magnitude > 0f && !m_isScared)
         {
             var eulerAngles = angles.eulerAngles;
             eulerAngles.z = Mathf.Sin(Time.time * m_wobbleSpeed) * m_wobbleAmount;
