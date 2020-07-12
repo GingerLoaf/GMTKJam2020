@@ -9,20 +9,23 @@ public class Enemy : MonoBehaviour, IClickable
     private NavMeshAgent m_navAgent = null;
 
     [SerializeField]
-    private IntReference m_health = null;
+    private IntReference m_currentHealth = null;
+
+    [SerializeField]
+    private IntReference m_maxHealth = null;
 
     private GameObject m_gameObject = null;
 
     private void OnEnable()
     {
-        m_health.Value = 9;
+        m_maxHealth.Value = m_currentHealth.Value = Mathf.RoundToInt(transform.localScale.magnitude);
     }
 
     public void ChangeHealth(int delta)
     {
-        m_health.Value += delta;
+        m_currentHealth.Value += delta;
 
-        if (m_health <= 0)
+        if (m_currentHealth <= 0)
         {
             Destroy(gameObject);
         }
@@ -39,6 +42,11 @@ public class Enemy : MonoBehaviour, IClickable
     {
         m_gameObject = gameObject;
         m_navAgent.isStopped = gameObject == null;
+
+        if (NavMesh.SamplePosition(m_gameObject.transform.position, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+        {
+            m_navAgent.Warp(hit.position);
+        }
     }
 
     private void Update()

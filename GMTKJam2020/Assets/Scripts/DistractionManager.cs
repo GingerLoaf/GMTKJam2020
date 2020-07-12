@@ -49,7 +49,7 @@ public class DistractionManager : MonoBehaviour
                     }
                 }
 
-                if (PruneAndSort())
+                if (PruneAndSort() && m_orderedDistractions.Count > 0)
                 {
                     m_onDistractionPositionSet?.Event?.Raise(m_orderedDistractions[0].PointOfInterest);
                 }

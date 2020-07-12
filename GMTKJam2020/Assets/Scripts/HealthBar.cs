@@ -9,11 +9,14 @@ public class HealthBar : MonoBehaviour
     private IntReference m_maxHealth = null;
 
     [SerializeField]
+    private IntReference m_currentHealth = null;
+
+    [SerializeField]
     private Slider m_slider = null;
 
-    public void SetHealth(int health)
+    public void Refresh()
     {
-        m_slider.value = (float)health / (float)m_maxHealth;
+        m_slider.value = (float)m_currentHealth / (float)m_maxHealth;
     }
 
 }
