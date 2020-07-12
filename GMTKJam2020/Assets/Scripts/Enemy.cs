@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour, IClickable
 
     private GameObject m_gameObject = null;
 
+    private void OnEnable()
+    {
+        m_health.Value = 9;
+    }
+
     public void ChangeHealth(int delta)
     {
         m_health.Value += delta;
